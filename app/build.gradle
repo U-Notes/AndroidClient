@@ -29,14 +29,15 @@ android {
 }
 
 dependencies {
-
+    //七牛云
+    implementation 'com.qiniu:qiniu-java-sdk:7.2.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation files('libs\\mysql-connector-java-5.1.49.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.squareup.okio:okio:1.17.4'
@@ -49,6 +50,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.code.gson:gson:2.8.6'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
     implementation 'androidx.fragment:fragment:1.3.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'

@@ -20,7 +20,7 @@ public class WelActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), MainActivity.class);
+                intent.setClass(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();//销毁欢迎页面
             }
