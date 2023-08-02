@@ -18,4 +18,6 @@
     <color name="greenBEE7E9">#BEE7E9</color>
     <color name="greenBEEDC7">#BEEDC7</color>
     <color name="greyececec">#ececec</color>
+    <color name="colorPrimaryDark">#FF9600</color>
+    <color name="colorAccent">#ff009688</color>
 </resources>

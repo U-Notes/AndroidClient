@@ -24,8 +24,8 @@ public class MainPagerAdapter extends FragmentStateAdapter  {
     public MainPagerAdapter(FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         fragmentList = new ArrayList<>();
-        fragmentList.add(new DevFragment());
-        fragmentList.add(new UserFragment());
+        fragmentList.add(new DevFragment());//功能页
+        fragmentList.add(new UserFragment());//用户页
     }
 
     @NonNull
