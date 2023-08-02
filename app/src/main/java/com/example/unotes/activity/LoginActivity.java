@@ -3,7 +3,6 @@ package com.example.unotes.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.opengl.ETC1;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.unotes.MainActivity;
 import com.example.unotes.R;
-import com.example.unotes.databseHelper.UserDB;
+import com.example.unotes.database.UserDao;
 
 import java.sql.SQLException;
 
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     toast.show();
                     Looper.loop();
                 }
-                UserDB ud = new UserDB();
+                UserDao ud = new UserDao();
                 Boolean result;
                 try {
                     result = ud.login(id, pwd);

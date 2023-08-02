@@ -25,7 +25,11 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 相机调用工具
  * 相机、相册工具类
+ *
+ * @author witer
+ * @date 2023/08/02
  */
 public class CameraUtils {
 

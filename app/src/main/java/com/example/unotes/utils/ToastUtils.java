@@ -1,80 +1,54 @@
 package com.example.unotes.utils;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.unotes.R;
-
-import androidx.core.content.ContextCompat;
-
-/**
- * @author WTL
- * @version 1.0.0
- * @date 2023/08/02
- * @describe Toast工具
- */
 public class ToastUtils {
 
-    private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
-    private static Context context;
-    // Toast对象
     private static Toast toast;
-    // 文字显示的颜色 <color name="white">#FFFFFFFF</color>
-    private static int messageColor = R.color.white;
 
     /**
-     * 在Application中初始化ToastUtils.init(this)
+     * 显示一个短时间的 Toast 消息
      *
-     * @param context
+     * @param context 上下文
+     * @param message 要显示的消息
      */
-    public static void init(Context context) {
-        ToastUtils.context = context.getApplicationContext();
+    public static void showToast(Context context, String message) {
+        showToast(context, message, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 发送Toast,默认LENGTH_SHORT
+     * 显示一个 Toast 消息
      *
-     * @param resId
+     * @param context  上下文
+     * @param message  要显示的消息
+     * @param duration 显示时间，可以是 Toast.LENGTH_SHORT 或 Toast.LENGTH_LONG
      */
-    public static void show(int resId) {
-        showToast(context, context.getString(resId), Toast.LENGTH_SHORT);
-    }
-
-    public static void showToast(Context context, String massage, int duration) {
-        // 设置显示文字的颜色
-        SpannableString spannableString = new SpannableString(massage);
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(ContextCompat.getColor(context, messageColor));
-        spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (toast == null) {
-            toast = Toast.makeText(context, spannableString, duration);
-        } else {
-            toast.setText(spannableString);
-            toast.setDuration(duration);
+    public static void showToast(Context context, String message, int duration) {
+        if (toast != null) {
+            // 取消之前的 Toast，避免消息累积
+            toast.cancel();
         }
-        // 设置显示的背景
-        View view = toast.getView();
-        view.setBackgroundResource(R.drawable.toast_frame_style);
-        // 设置Toast要显示的位置，水平居中并在底部，X轴偏移0个单位，Y轴偏移200个单位，
-        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
+        toast = Toast.makeText(context.getApplicationContext(), message, duration);
         toast.show();
     }
 
-    /**
-     * 在UI界面隐藏或者销毁前取消Toast显示
-     */
-    public static void cancel() {
-        if (toast != null) {
-            toast.cancel();
-            toast = null;
-        }
+    // 以下是一些重载方法，方便在其他场景下调用
+
+    public static void showToast(Context context, int resId) {
+        showToast(context, context.getString(resId), Toast.LENGTH_SHORT);
+    }
+
+    public static void showToast(Context context, int resId, int duration) {
+        showToast(context, context.getString(resId), duration);
+    }
+
+    public static void showToast(Context context, int resId, Object... formatArgs) {
+        showToast(context, context.getString(resId, formatArgs), Toast.LENGTH_SHORT);
+    }
+
+    public static void showToast(Context context, int resId, int duration, Object... formatArgs) {
+        showToast(context, context.getString(resId, formatArgs), duration);
     }
 }

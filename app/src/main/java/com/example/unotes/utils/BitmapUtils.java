@@ -12,7 +12,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * 位图转换
  * Bitmap工具类
+ *
+ * @author witer
+ * @date 2023/08/02
  */
 public class BitmapUtils {
     /**

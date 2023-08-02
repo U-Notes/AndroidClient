@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.unotes.R;
 import com.example.unotes.utils.BitmapUtils;
 import com.example.unotes.utils.CameraUtils;
+import com.example.unotes.utils.SPUtils;
 import com.example.unotes.utils.ToastUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -73,12 +74,17 @@ public class UserFragment extends Fragment {
             v = inflater.inflate(R.layout.userfragment, container, false);
             iv_userIcon = v.findViewById(R.id.iv_userIcon);
             rxPermissions = new RxPermissions(getActivity());
+            //取出缓存
+            String imageUrl = SPUtils.getString("imageUrl",null,getActivity());
+            if(imageUrl != null){
+                Glide.with(this).load(imageUrl).apply(requestOptions).into(iv_userIcon);
+            }
 
             iv_userIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    changeAvatar()
                     checkVersion();
+                    changeAvatar();
 
                 }
             });
@@ -123,14 +129,14 @@ public class UserFragment extends Fragment {
      */
     private void displayImage(String imagePath) {
         if (!TextUtils.isEmpty(imagePath)) {
+            //本地缓存
+            SPUtils.putString("imageUrl",imagePath,getActivity());
             //显示图片
             Glide.with(this).load(imagePath).apply(requestOptions).into(iv_userIcon);
-
             //压缩图片
             orc_bitmap = CameraUtils.compression(BitmapFactory.decodeFile(imagePath));
             //转Base64
             base64Pic = BitmapUtils.bitmapToBase64(orc_bitmap);
-
         } else {
             toastUtils.showToast(getContext(), "图片获取失败", 500);
         }
@@ -140,9 +146,9 @@ public class UserFragment extends Fragment {
     /**
      * 更换头像
      *
-     * @param view
+     * @param
      */
-    public void changeAvatar(View view) {
+    public void changeAvatar() {
         bottomSheetDialog = new BottomSheetDialog(getActivity());
         bottomView = getLayoutInflater().inflate(R.layout.dialog_bottom, null);
         bottomSheetDialog.setContentView(bottomView);
@@ -154,13 +160,13 @@ public class UserFragment extends Fragment {
         //拍照
         tvTakePictures.setOnClickListener(v -> {
             takePhoto();
-            toastUtils.showToast(getActivity(), "拍照", 500);
+            toastUtils.showToast(getContext(), "拍照", 500);
             bottomSheetDialog.cancel();
         });
         //打开相册
         tvOpenAlbum.setOnClickListener(v -> {
             openAlbum();
-            toastUtils.showToast(getActivity(), "打开相册", 500);
+            toastUtils.showToast(getContext(), "打开相册", 500);
             bottomSheetDialog.cancel();
         });
         //取消
@@ -175,7 +181,7 @@ public class UserFragment extends Fragment {
      */
     private void takePhoto() {
         if (!hasPermissions) {
-            toastUtils.showToast(getActivity(), "未获取到权限", 500);
+//            toastUtils.showToast(getContext(), "未获取到权限", 500);
             checkVersion();
             return;
         }
@@ -194,7 +200,7 @@ public class UserFragment extends Fragment {
      */
     private void openAlbum() {
         if (!hasPermissions) {
-            toastUtils.showToast(getActivity(), "未获取到权限", 500);
+            toastUtils.showToast(getContext(), "未获取到权限", 500);
             checkVersion();
             return;
         }
@@ -215,20 +221,24 @@ public class UserFragment extends Fragment {
             //如果你是在Fragment中，则把this换成getActivity()
 //            rxPermissions = new RxPermissions(this);
             //权限请求
-            rxPermissions
-                    .request(Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .subscribe(permission -> {
-                        if (permission) {//申请成功
-                            toastUtils.showToast(getContext(), "已获取权限", 500);
-                            hasPermissions = true;
 
-                        } else {//申请失败
-                            toastUtils.showToast(getContext(), "权限未开启", 500);
-                            hasPermissions = false;
+                rxPermissions
+                        .request(Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .subscribe(permission -> {
+                            if (permission) {//申请成功
+                                toastUtils.showToast(getContext(), "已获取权限", 500);
+                                hasPermissions = true;
 
-                        }
-                    });
+                            } else {//申请失败
+                                toastUtils.showToast(getContext(), "权限未开启", 500);
+                                hasPermissions = false;
+
+                            }
+                        }, e -> {
+                            e.printStackTrace();
+                        });
+
         } else {
             //Android6.0以下
             toastUtils.showToast(getContext(), "无需请求动态权限", 500);

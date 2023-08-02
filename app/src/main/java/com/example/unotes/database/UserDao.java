@@ -1,4 +1,4 @@
-package com.example.unotes.databseHelper;
+package com.example.unotes.database;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author witer
  * @date 2023/07/30
  */
-public class UserDB {
+public class UserDao {
     JdbcUtils jdbcUtil = JdbcUtils.getInstance();
     Connection conn = jdbcUtil.getConnection();
 //TODO 后续需要增加一个中间层，防止被逆向
