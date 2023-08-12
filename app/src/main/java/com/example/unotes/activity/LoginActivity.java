@@ -1,5 +1,7 @@
 package com.example.unotes.activity;
 
+import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,9 +21,10 @@ import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mTextView;
-    private EditText et_id,et_pwd;
+    private EditText et_id, et_pwd;
     private Button mButton;
-    private String TAG=LoginActivity.class.getSimpleName();
+    private String TAG = LoginActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_pwd = findViewById(R.id.et_pwd);
         mButton.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         new Thread(new Runnable() {
@@ -64,7 +68,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     toast = Toast.makeText(getApplicationContext(), "用户名不存在或密码错误！", Toast.LENGTH_SHORT);
                 } else {
                     toast = Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT);
-                    startActivities(new Intent[]{new Intent(getApplicationContext(), MainActivity.class)});
+                    Intent intent = getIntent();
+                    intent.putExtra("loginStatu", LOGIN_STATU_ON);
+                    intent.setClass(getApplicationContext(), MainActivity.class);
+                    startActivities(new Intent[]{intent});
                 }
                 toast.show();
                 Looper.loop();

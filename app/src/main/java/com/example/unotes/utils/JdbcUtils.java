@@ -27,7 +27,7 @@ public class JdbcUtils {
          String password= "witer330";
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://192.168.0.101:3306/" +
+            return DriverManager.getConnection("jdbc:mysql://192.168.0.104:3306/" +
                             "unote?allowMultiQueries=true" +
                             "&useUnicode=true" +
                             "&characterEncoding=UTF-8" +
