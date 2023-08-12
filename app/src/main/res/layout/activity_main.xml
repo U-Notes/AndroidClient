@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <!--    <TextView-->
+
+    <com.example.unotes.view.SlidingMenu
+        android:id="@+id/sliding_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/devlayout_menu" />
+
+        <include layout="@layout/devlayout_content" />
+    </com.example.unotes.view.SlidingMenu>
+</FrameLayout><!--    <TextView-->
     <!--        android:id="@+id/textView"-->
     <!--        android:layout_width="110dp"-->
     <!--        android:layout_height="68dp"-->
@@ -20,6 +26,3 @@
     <!--        android:gravity="center"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-</FrameLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/cardview_shadow_end_color"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/black" />
+
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/viewPager"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="#8C000000"
+        tools:alpha="1" />
+</FrameLayout>

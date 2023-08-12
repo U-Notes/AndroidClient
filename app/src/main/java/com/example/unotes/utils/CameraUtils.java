@@ -191,7 +191,7 @@ public class CameraUtils {
      * @param image
      * @return
      */
-    public static Bitmap compression(Bitmap image) {
+    public static Bitmap compression(Bitmap image){
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         //判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出

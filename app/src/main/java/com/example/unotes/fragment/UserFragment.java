@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.unotes.R;
 import com.example.unotes.utils.BitmapUtils;
 import com.example.unotes.utils.CameraUtils;
+import com.example.unotes.utils.PermissionRequester;
 import com.example.unotes.utils.SPUtils;
 import com.example.unotes.utils.ToastUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -34,8 +36,10 @@ import java.io.Console;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.unotes.constant.Constant.PERMISSION_REQUEST_CODE;
 import static com.example.unotes.constant.Constant.SELECT_PHOTO;
 import static com.example.unotes.constant.Constant.TAKE_PHOTO;
 
@@ -55,14 +59,17 @@ public class UserFragment extends Fragment {
     //权限请求
     private RxPermissions rxPermissions;
     //是否拥有权限
-    private boolean hasPermissions = false;
+    private boolean hasPermissions = true;
     //存储拍完照后的图片
     private File outputImagePath;
     ShapeableImageView iv_userIcon;
     private String base64Pic;
     //拍照和相册获取图片的Bitmap
-    private Bitmap orc_bitmap;
+    private Bitmap orc_bitmap ;
     //Glide请求图片选项配置
+    private PermissionRequester permissionRequester;
+    String[] permissions = {Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private RequestOptions requestOptions = RequestOptions.circleCropTransform()
             .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
             .skipMemoryCache(true);//不做内存缓存
@@ -73,7 +80,21 @@ public class UserFragment extends Fragment {
         if (v == null) {
             v = inflater.inflate(R.layout.userfragment, container, false);
             iv_userIcon = v.findViewById(R.id.iv_userIcon);
-            rxPermissions = new RxPermissions(getActivity());
+            permissionRequester = PermissionRequester.with(this, new PermissionRequester.PermissionCallback() {
+                @Override
+                public void onPermissionGranted() {
+
+                }
+
+                @Override
+                public void onPermissionDenied(List<String> deniedPermissions) {
+
+                }
+            },PERMISSION_REQUEST_CODE);
+            permissionRequester.request(permissions);
+
+
+//            rxPermissions = new RxPermissions(getActivity());
             //取出缓存
             String imageUrl = SPUtils.getString("imageUrl",null,getActivity());
             if(imageUrl != null){
@@ -83,13 +104,20 @@ public class UserFragment extends Fragment {
             iv_userIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkVersion();
+//                    checkVersion();
                     changeAvatar();
 
                 }
             });
         }
         return v;
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionRequester.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
     }
 
@@ -129,14 +157,14 @@ public class UserFragment extends Fragment {
      */
     private void displayImage(String imagePath) {
         if (!TextUtils.isEmpty(imagePath)) {
-            //本地缓存
-            SPUtils.putString("imageUrl",imagePath,getActivity());
             //显示图片
             Glide.with(this).load(imagePath).apply(requestOptions).into(iv_userIcon);
             //压缩图片
             orc_bitmap = CameraUtils.compression(BitmapFactory.decodeFile(imagePath));
             //转Base64
             base64Pic = BitmapUtils.bitmapToBase64(orc_bitmap);
+            //本地缓存
+            SPUtils.putString("imageUrl",imagePath,getActivity());
         } else {
             toastUtils.showToast(getContext(), "图片获取失败", 500);
         }
@@ -144,7 +172,7 @@ public class UserFragment extends Fragment {
 
 
     /**
-     * 更换头像
+     * 更换头像的dialog弹窗选项
      *
      * @param
      */
@@ -181,8 +209,8 @@ public class UserFragment extends Fragment {
      */
     private void takePhoto() {
         if (!hasPermissions) {
-//            toastUtils.showToast(getContext(), "未获取到权限", 500);
-            checkVersion();
+            toastUtils.showToast(getContext(), "未获取到权限", 500);
+//            checkVersion();
             return;
         }
         SimpleDateFormat timeStampFormat = new SimpleDateFormat(
@@ -201,7 +229,7 @@ public class UserFragment extends Fragment {
     private void openAlbum() {
         if (!hasPermissions) {
             toastUtils.showToast(getContext(), "未获取到权限", 500);
-            checkVersion();
+//            checkVersion();
             return;
         }
         startActivityForResult(CameraUtils.getSelectPhotoIntent(), SELECT_PHOTO);
@@ -214,7 +242,7 @@ public class UserFragment extends Fragment {
 
     /**
      * 检查版本
-     */
+
     private void checkVersion() {
         //Android6.0及以上版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -244,5 +272,5 @@ public class UserFragment extends Fragment {
             toastUtils.showToast(getContext(), "无需请求动态权限", 500);
         }
     }
-
+*/
 }
