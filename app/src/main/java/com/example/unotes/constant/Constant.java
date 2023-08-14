@@ -13,5 +13,8 @@ public class Constant {
     public static final int SELECT_PHOTO = 2;
     //权限请求上限
     public static final int PERMISSION_REQUEST_CODE = 100;
+    //是否成功登录的凭证
+    public static final int LOGIN_STATU_ON = 0;
+    public static final int LOGIN_STATU_OFF = 1;
 
 }

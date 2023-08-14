@@ -1,5 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/devmenu_list"
-    android:layout_width="280dp"
-    android:layout_height="match_parent" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fl_menuInfo"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/greenA0EEE1"
+            android:text="点 我 登 录"
+            android:textColor="#000"
+            android:id="@+id/bt_login"
+            android:visibility="visible"
+            android:onClick="mainlogin"
+            />
+        <LinearLayout
+            android:id="@+id/ll_menuInfo"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_userIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/usericon" />
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_userName"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_userInfoName"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="UserName"
+                        android:textSize="25dp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:id="@+id/iv_goright"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:alpha="0.35"
+                        android:background="@drawable/goright" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_userDept"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="UserDept"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/greyD6D5B7"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/iv_status"
+                        android:background="@drawable/status"
+                        android:alpha="0.8"/>
+                </LinearLayout>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/qrcode"
+                android:layout_gravity="center"
+                android:layout_marginLeft="28dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rl_MenuDept"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fl_menuInfo" />
+
+    <LinearLayout
+        android:id="@+id/ll_menuSetting"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
