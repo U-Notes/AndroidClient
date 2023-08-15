@@ -20,9 +20,9 @@ import com.example.unotes.database.UserDao;
 import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView mTextView;
+    private TextView tv_loginName;
     private EditText et_id, et_pwd;
-    private Button mButton;
+    private Button bt_login;
     private String TAG = LoginActivity.class.getSimpleName();
 
     @Override
@@ -34,11 +34,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        mTextView = (TextView) findViewById(R.id.textView);
-        mButton = (Button) findViewById(R.id.button);
+        tv_loginName = (TextView) findViewById(R.id.tv_loginName);
+        bt_login = (Button) findViewById(R.id.bt_login);
         et_id = findViewById(R.id.et_id);
         et_pwd = findViewById(R.id.et_pwd);
-        mButton.setOnClickListener(this);
+        bt_login.setOnClickListener(this);
     }
 
     @Override
