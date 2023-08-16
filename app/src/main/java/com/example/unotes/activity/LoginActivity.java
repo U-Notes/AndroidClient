@@ -1,21 +1,34 @@
 package com.example.unotes.activity;
 
+import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
 import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.unotes.MainActivity;
 import com.example.unotes.R;
 import com.example.unotes.database.UserDao;
+import com.example.unotes.utils.ToastUtils;
 
 import java.sql.SQLException;
 
@@ -24,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_id, et_pwd;
     private Button bt_login;
     private String TAG = LoginActivity.class.getSimpleName();
+    private CheckBox cb_agreeService;
+    boolean isRead = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_id = findViewById(R.id.et_id);
         et_pwd = findViewById(R.id.et_pwd);
         bt_login.setOnClickListener(this);
+        cb_agreeService = findViewById(R.id.cb_agreeService);
+        cb_agreeService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isRead = isChecked;
+            }
+        });
+        SpannableString ss_rb_service = new SpannableString(cb_agreeService.getText());
+        ss_rb_service.setSpan(new Intent(getApplicationContext(), MainActivity.class), 6, 10, SPAN_EXCLUSIVE_EXCLUSIVE);
+        cb_agreeService.setText(ss_rb_service);
+
     }
 
     @Override
@@ -52,6 +78,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Looper.prepare();
                     Toast toast = Toast.makeText(LoginActivity.this, "输入不能为空！", Toast.LENGTH_SHORT);
                     toast.show();
+                    Looper.loop();
+                }
+                if (!isRead) {
+                    Looper.prepare();
+                    ToastUtils.showToast(getApplicationContext(), "请同意协议", 200);
                     Looper.loop();
                 }
                 UserDao ud = new UserDao();

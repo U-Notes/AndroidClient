@@ -19,7 +19,7 @@
             android:layout_height="80dp"
             android:layout_marginTop="130dp"
             android:gravity="center"
-            android:text="U · Note"
+            android:text="@string/Company_Name"
             android:textColor="#000"
             android:textSize="50dp"
             android:textStyle="bold" />
@@ -29,12 +29,12 @@
             android:id="@+id/et_id"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="请输入账号"
+            android:hint="请输入账号/手机号"
             android:textColorHint="#8F8F8F"
             android:text=""
             android:layout_gravity="center_horizontal"
             style="@style/InputBoxStyle"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
         <EditText
             android:id="@+id/et_pwd"
             android:layout_marginTop="15dp"
@@ -46,13 +46,27 @@
             android:text=""
             android:password="true"
             style="@style/InputBoxStyle"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
+        <CheckBox
+            android:id="@+id/cb_agreeService"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
 
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:theme="@style/CheckBox_circle"
+            android:text="已阅读并同意服务协议和隐私保护指引"
+            android:textColor="#6f6f6f"
+            android:textStyle="bold"
+            android:alpha="0.6"
+            android:layout_gravity="center_horizontal"
 
-
+            />
         <Button
             android:id="@+id/bt_login"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_width="200dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="50dp"
@@ -61,7 +75,48 @@
             android:text="登陆"
             android:textSize="20dp" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp">
 
+            <ImageView
+                android:id="@+id/bt_loginByqq"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle_btn"
+                android:src="@drawable/qqicon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bt_loginByPhone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/bt_loginByWehcat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle_btn"
+                android:src="@drawable/wechaticon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bt_loginByPhone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/bt_loginByPhone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="180dp"
+                android:src="@drawable/mobile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </FrameLayout>

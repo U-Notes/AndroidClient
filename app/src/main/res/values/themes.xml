@@ -27,4 +27,14 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="circleBtn">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">200dp</item>
+        
+    </style>
+    <style name="CheckBox_circle" parent="Theme.AppCompat.Light">
+            <item name="android:colorControlActivated">@color/green8CC7B5</item>//激活后
+            <item name="android:colorControlNormal">@color/greyD6D5B7</item>//激活前
+
+    </style>
 </resources>
