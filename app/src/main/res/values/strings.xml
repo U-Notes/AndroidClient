@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">UNotes</string>
     <string name="Company_Name">U · Note</string>
+    <string name="privacy_policy">《Unotes 隐私政策》</string>
+    <string name="user_known">「U · Note」 需要获取下述权限以提供服务，包括: 访问存储设备以导入、导出笔记、多媒体等数据:访问网络以使用用户登录、数据同步等功能:收集设备的 Mac地址、唯一设备识别码 (IMEI/AndroidID/IDFA/OPENUDID/GUID、SIM 卡IMSI信息)、地理位置以提供统计分析、崩溃分析等服务。详情请查看。
+    </string>
+    <string name="instructions_for_use">依据相关法律法规，我们将在充分保障你的知情权且获得你的明确授权后收集、使用你的个人信息。
+    </string>
+
 </resources>

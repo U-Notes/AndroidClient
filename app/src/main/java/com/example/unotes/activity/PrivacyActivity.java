@@ -43,7 +43,7 @@ public class PrivacyActivity extends AppCompatActivity {
         String str = initAssets(privacyFileName);
         final View inflate = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_privacy_show, null);
         TextView tv_title = (TextView) inflate.findViewById(R.id.tv_title);
-        tv_title.setText("羲和隐私政策");
+        tv_title.setText("隐私政策");
         TextView tv_content = (TextView) inflate.findViewById(R.id.tv_content);
         tv_content.setText(str);
         dialog = new AlertDialog
