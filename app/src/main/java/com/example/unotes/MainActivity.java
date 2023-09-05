@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout devmenuList;
     private FrameLayout flMenuInfo;
-    private Button btLogin;
+    private Button bt_gotologin;
     private LinearLayout llMenuInfo;
     private ImageView ivUserIcon;
     private LinearLayout llUserName;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         vContentBg = findViewById(R.id.content_bg);
         devmenuList = (ConstraintLayout) findViewById(R.id.devmenu_list);
         flMenuInfo = (FrameLayout) findViewById(R.id.fl_menuInfo);
-        btLogin = (Button) findViewById(R.id.bt_login);
+        bt_gotologin = (Button) findViewById(R.id.bt_gotologin);
         llMenuInfo = (LinearLayout) findViewById(R.id.ll_menuInfo);
         ivUserIcon = (ImageView) findViewById(R.id.iv_userIcon);
         llUserName = (LinearLayout) findViewById(R.id.ll_userName);
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Intent intent = getIntent();
         if (intent.getIntExtra("loginStatu", LOGIN_STATU_OFF) == LOGIN_STATU_ON) {
-            btLogin.setVisibility(View.INVISIBLE);
+            bt_gotologin.setVisibility(View.INVISIBLE);
             llMenuInfo.setVisibility(View.VISIBLE);
         }
     }

@@ -17,7 +17,7 @@
             android:backgroundTint="@color/greenA0EEE1"
             android:text="点 我 登 录"
             android:textColor="#000"
-            android:id="@+id/bt_login"
+            android:id="@+id/bt_gotologin"
             android:visibility="visible"
             android:onClick="mainlogin"
             />
