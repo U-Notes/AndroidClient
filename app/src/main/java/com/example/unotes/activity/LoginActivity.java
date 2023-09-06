@@ -31,11 +31,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_id, et_pwd;
     private Button bt_login;
     private String TAG = LoginActivity.class.getSimpleName();
-    private CheckBox cb_agreeService;
-    private String content = "已阅读并同意服务协议和隐私保护指引";
+    private CheckBox cb_rememberPwd;
     boolean isRead = false;
-    private String url1 = "https://www.baidu.com";
-    private String url2 = "https://www.hao123.com/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_id = findViewById(R.id.et_id);
         et_pwd = findViewById(R.id.et_pwd);
         bt_login.setOnClickListener(this);
-        cb_agreeService = findViewById(R.id.cb_agreeService);
-        cb_agreeService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cb_rememberPwd = findViewById(R.id.cb_rememberPwd);
+        //记住密码
+        cb_rememberPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isRead = isChecked;

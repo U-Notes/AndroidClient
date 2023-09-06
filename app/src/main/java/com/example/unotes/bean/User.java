@@ -2,6 +2,7 @@ package com.example.unotes.bean;
 
 
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * 用户实体类

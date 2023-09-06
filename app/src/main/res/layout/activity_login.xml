@@ -25,43 +25,45 @@
             android:textStyle="bold" />
 
         <EditText
-            android:layout_marginTop="40dp"
             android:id="@+id/et_id"
+            style="@style/InputBoxStyle"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="请输入账号/手机号"
-            android:textColorHint="#8F8F8F"
-            android:text=""
             android:layout_gravity="center_horizontal"
-            style="@style/InputBoxStyle"
+            android:layout_marginTop="40dp"
+            android:hint="请输入账号/手机号"
+            android:text=""
+            android:textColorHint="#8F8F8F"
             android:textSize="15dp" />
+
         <EditText
             android:id="@+id/et_pwd"
-            android:layout_marginTop="15dp"
+            style="@style/InputBoxStyle"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:hint="请输入密码"
-            android:textColorHint="#8F8F8F"
-            android:text=""
-            android:password="true"
-            style="@style/InputBoxStyle"
-            android:textSize="15dp" />
-        <CheckBox
-            android:id="@+id/cb_agreeService"
-            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
             android:layout_marginTop="15dp"
+            android:hint="请输入密码"
+            android:password="true"
+            android:text=""
+            android:textColorHint="#8F8F8F"
+            android:textSize="15dp" />
 
+        <CheckBox
+            android:id="@+id/cb_rememberPwd"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginTop="15dp"
+            android:alpha="0.6"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:theme="@style/CheckBox_circle"
-            android:text="已阅读并同意服务协议和隐私保护指引"
+            android:text="记住密码"
             android:textColor="#6f6f6f"
             android:textStyle="bold"
-            android:alpha="0.6"
-            android:layout_gravity="center_horizontal"
+            android:theme="@style/CheckBox_circle"
 
             />
 
@@ -73,7 +75,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/button_drawable"
             android:gravity="center"
-            android:text="登陆"
+            android:text="登  陆"
+            android:textColor="#fff"
             android:textSize="20dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,9 +92,10 @@
                 android:src="@drawable/qqicon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.399"
                 app:layout_constraintStart_toEndOf="@+id/bt_loginByPhone"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/bt_loginByWehcat"
@@ -101,6 +105,7 @@
                 android:src="@drawable/wechaticon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bt_loginByPhone"
+                app:layout_constraintHorizontal_bias="0.601"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -109,7 +114,7 @@
                 android:id="@+id/bt_loginByPhone"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="180dp"
+                android:layout_marginStart="152dp"
                 android:src="@drawable/mobile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

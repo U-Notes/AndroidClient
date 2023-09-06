@@ -3,6 +3,7 @@ package com.example.unotes.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,12 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.unotes.R;
+import com.example.unotes.bean.User;
 
 public class InstructionsActivity extends AppCompatActivity {
     private Button btAgreeToUse;
     private Button btRefuseToUse;
     private TextView tvUserKnown;
-
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class InstructionsActivity extends AppCompatActivity {
         btAgreeToUse = (Button) findViewById(R.id.bt_agreeToUse);
         btRefuseToUse = (Button) findViewById(R.id.bt_refuseToUse);
         tvUserKnown = (TextView) findViewById(R.id.tv_user_known);
+
 
 
     }
@@ -73,5 +76,14 @@ public class InstructionsActivity extends AppCompatActivity {
         } else {
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
+    }
+
+    public void gotoWelcome(View view) {
+        startActivity(new Intent(getApplicationContext(),WelActivity.class));
+    }
+
+    public void cannelUse(View view) {
+
+        onDestroy();
     }
 }

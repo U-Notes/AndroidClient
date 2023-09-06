@@ -5,40 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.InstructionsActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:text="感谢使用U·Note云开发笔记"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="感谢使用U·Note云开发笔记"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:textColor="#c8c8c8"
             android:text="@string/instructions_for_use"
-            android:textStyle="bold"
+            android:textColor="#c8c8c8"
             android:textSize="12dp"
-            android:layout_gravity="center_horizontal"/>
+            android:textStyle="bold" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="50dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -47,56 +51,54 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="用户须知"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"/>
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="用户须知"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <TextView
+                    android:id="@+id/tv_user_known"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:layout_marginTop="30dp"
-                    android:lineSpacingMultiplier="1.2"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="30dp"
+                    android:lineSpacingMultiplier="1.2"
                     android:text="@string/user_known"
-                    android:typeface="serif"
-                    android:id="@+id/tv_user_known"
-                    />
+                    android:textSize="15dp"
+                    android:typeface="serif" />
+
                 <Button
                     android:id="@+id/bt_agreeToUse"
                     android:layout_width="180dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
-                    android:backgroundTint="#009788"
+                    android:onClick="gotoWelcome"
+                    android:background="@drawable/button_drawable"
                     android:text="同意并使用"
                     android:textColor="#fff"
-                    android:textSize="15dp"
-                    />
-                    <Button
+                    android:textSize="15dp" />
+
+                <Button
                     android:id="@+id/bt_refuseToUse"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="180dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="#fff"
+                    android:onClick="cannelUse"
                     android:text="但是我拒绝"
-                    style="?android:attr/borderlessButtonStyle"
                     android:textColor="#919191"
-                    android:textSize="15dp"
-                    />
-
-
+                    android:textSize="15dp" />
 
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-
 
 
     </LinearLayout>
