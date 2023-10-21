@@ -1,6 +1,7 @@
 package com.example.unotes.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +21,8 @@ import com.example.unotes.bean.User;
 public class InstructionsActivity extends AppCompatActivity {
     private Button btAgreeToUse;
     private Button btRefuseToUse;
-    private TextView tvUserKnown;
+    private TextView tv_instrucitons_known,tv_instrucitons_label;
+    private CardView cv_instructions_describe;
     User user;
 
     @Override
@@ -31,12 +35,16 @@ public class InstructionsActivity extends AppCompatActivity {
     }
 
     private void initview() {
-
-
+        tv_instrucitons_label= findViewById(R.id.tv_instrucitons_label);
+        cv_instructions_describe = findViewById(R.id.cv_instructions_describe);
         btAgreeToUse = (Button) findViewById(R.id.bt_agreeToUse);
         btRefuseToUse = (Button) findViewById(R.id.bt_refuseToUse);
-        tvUserKnown = (TextView) findViewById(R.id.tv_user_known);
+        tv_instrucitons_known = (TextView) findViewById(R.id.tv_instrucitons_known);
+        Animation animation = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.anim_instrucion_describe);
+        cv_instructions_describe.setAnimation(animation);
 
+        Animation animation1 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.anim_instrucion_title);
+        tv_instrucitons_label.setAnimation(animation1);
 
 
     }
@@ -79,7 +87,7 @@ public class InstructionsActivity extends AppCompatActivity {
     }
 
     public void gotoWelcome(View view) {
-        startActivity(new Intent(getApplicationContext(),WelActivity.class));
+        startActivity(new Intent(getApplicationContext(), WelActivity.class));
     }
 
     public void cannelUse(View view) {
