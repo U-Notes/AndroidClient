@@ -1,19 +1,22 @@
 package com.example.unotes.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.unotes.R;
 import com.example.unotes.bean.User;
@@ -21,7 +24,7 @@ import com.example.unotes.bean.User;
 public class InstructionsActivity extends AppCompatActivity {
     private Button btAgreeToUse;
     private Button btRefuseToUse;
-    private TextView tv_instrucitons_known,tv_instrucitons_label;
+    private TextView tv_instrucitons_known, tv_instrucitons_label;
     private CardView cv_instructions_describe;
     User user;
 
@@ -35,17 +38,27 @@ public class InstructionsActivity extends AppCompatActivity {
     }
 
     private void initview() {
-        tv_instrucitons_label= findViewById(R.id.tv_instrucitons_label);
+        //获取屏幕宽高
+        Resources resource = this.getResources();
+        DisplayMetrics metrics = resource.getDisplayMetrics();
+        tv_instrucitons_label = findViewById(R.id.tv_instrucitons_label);
+        Float y =  tv_instrucitons_label.getY();
         cv_instructions_describe = findViewById(R.id.cv_instructions_describe);
         btAgreeToUse = (Button) findViewById(R.id.bt_agreeToUse);
         btRefuseToUse = (Button) findViewById(R.id.bt_refuseToUse);
         tv_instrucitons_known = (TextView) findViewById(R.id.tv_instrucitons_known);
-        Animation animation = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.anim_instrucion_describe);
-        cv_instructions_describe.setAnimation(animation);
-
-        Animation animation1 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.anim_instrucion_title);
-        tv_instrucitons_label.setAnimation(animation1);
-
+        AnimatorSet animatorSet = new AnimatorSet();
+        /*
+         * 动画显示
+         * 先进行标题行的透明度动画，之后再进行标题行，说明行，描述控件的上移动画
+         * */
+        ObjectAnimator oa_title_show = ObjectAnimator.ofFloat(tv_instrucitons_label, "alpha", 0 , 1);
+        ObjectAnimator oa_title_moveup = ObjectAnimator.ofFloat(tv_instrucitons_label, "translationY", (float) metrics.widthPixels / 2, y);
+        ObjectAnimator oa_describe_move = ObjectAnimator.ofFloat(cv_instructions_describe, "translationY", metrics.widthPixels * 2, 0);
+        ObjectAnimator oa_kwon_move = ObjectAnimator.ofFloat(tv_instrucitons_known, "translationY", metrics.widthPixels * 2, 0);
+        animatorSet.setDuration(1000);
+        animatorSet.play(oa_describe_move).after(oa_kwon_move).after(oa_title_moveup).after(oa_title_show);
+        animatorSet.start();
 
     }
 
