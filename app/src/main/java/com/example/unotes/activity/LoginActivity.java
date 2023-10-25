@@ -1,29 +1,25 @@
 package com.example.unotes.activity;
 
-import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
 import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unotes.MainActivity;
 import com.example.unotes.R;
 import com.example.unotes.database.UserDao;
 import com.example.unotes.utils.ToastUtils;
+
 import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {

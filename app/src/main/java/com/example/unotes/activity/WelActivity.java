@@ -20,6 +20,9 @@ public class WelActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent();
+                //如已授权，则直接进入主页
+//                if ()
+                intent.setClass(getApplicationContext(), InstructionsActivity.class);
                 intent.setClass(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();//销毁欢迎页面

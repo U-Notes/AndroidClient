@@ -17,6 +17,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="30dp"
+            android:alpha="0"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:textColor="@color/black"
@@ -34,6 +35,7 @@
                 android:id="@+id/tv_instrucitons_known"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
+                android:alpha="0"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
@@ -49,6 +51,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
+            android:alpha="0"
             android:layout_marginBottom="50dp"
             android:id="@+id/cv_instructions_describe">
 
@@ -85,7 +88,6 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
-                    android:onClick="gotoWelcome"
                     android:background="@drawable/button_drawable"
                     android:text="同意并使用"
                     android:textColor="#fff"
