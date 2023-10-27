@@ -17,8 +17,6 @@
         <activity
             android:name=".activity.InstructionsActivity"
             android:exported="true" >
-
-
         </activity>
 
         <activity

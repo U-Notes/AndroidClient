@@ -3,42 +3,36 @@ package com.example.unotes.activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.Manifest;
-
-import com.example.unotes.MainActivity;
 import com.example.unotes.R;
-import com.example.unotes.bean.User;
-import com.example.unotes.utils.ToastUtils;
+import com.example.unotes.utils.ActivityUtils;
+import com.example.unotes.utils.PermissionUtils;
+import com.example.unotes.utils.SPUtils;
 
+/**
+ * @author WTL
+ * @date 2023/10/27
+ */
 public class InstructionsActivity extends AppCompatActivity {
     private Button btAgreeToUse;
     private Button btRefuseToUse;
     private TextView tv_instrucitons_known, tv_instrucitons_label;
     private CardView cv_instructions_describe;
-    User user;
-    boolean isGranted = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +40,7 @@ public class InstructionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_instructions);
         setFullscreen(true, true);
         setAndroidNativeLightStatusBar(this, true);
+        SPUtils.getBoolean("instruction",false,this);
         initview();
         initEvent();
     }
@@ -69,47 +64,27 @@ public class InstructionsActivity extends AppCompatActivity {
     }
     private void initEvent() {
         btAgreeToUse.setOnClickListener((click)->{
-            checkPermission();
-            AlertDialog.Builder aler = new AlertDialog.Builder(this)
-                        .setTitle("权限未开启")
-                        .setPositiveButton("去设置", (dialog, which) -> {
-                                    toSelfSetting(getApplicationContext());
-                                }
-                        ).setNegativeButton("取消", (dialog, which) -> {
-                            dialog.dismiss();
-                        });
-            if (!isGranted) {
-                        aler.create().show();
-            } else {
-                startActivity(new Intent(getApplicationContext(), WelActivity.class));
-            }
+
+            SPUtils.putBoolean("permission",  PermissionUtils.checkPermission(this), this);
+            SPUtils.putBoolean("instruction",true,this);
+                startActivity(new Intent(this, LoginActivity.class));
         });
 
     }
 
-    //动态访问权限弹窗
-
-    public Boolean checkPermission() {
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                isGranted = false;
-            }
-            if (this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                isGranted = false;
-            }
-            Log.i("读写权限获取", " ： " + isGranted);
-            if (!isGranted) {
-                this.requestPermissions(
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission
-                                .ACCESS_FINE_LOCATION,
-                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        102);
-            }
-        }
-        return isGranted;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.removeActivity(this);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    //动态访问权限弹窗
     private void initview() {
         //获取屏幕宽高
         Resources resource = this.getResources();
@@ -175,10 +150,6 @@ public class InstructionsActivity extends AppCompatActivity {
         } else {
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-    }
-
-    public void gotoWelcome(View view) {
-        startActivity(new Intent(getApplicationContext(), WelActivity.class));
     }
 
     public void cannelUse(View view) {

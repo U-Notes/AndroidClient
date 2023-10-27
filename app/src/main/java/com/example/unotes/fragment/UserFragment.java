@@ -1,18 +1,21 @@
 package com.example.unotes.fragment;
 
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.unotes.constant.Constant.PERMISSION_REQUEST_CODE;
+import static com.example.unotes.constant.Constant.SELECT_PHOTO;
+import static com.example.unotes.constant.Constant.TAKE_PHOTO;
+
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,16 +35,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tbruyelle.rxpermissions3.RxPermissions;
 
-import java.io.Console;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
-import static com.example.unotes.constant.Constant.PERMISSION_REQUEST_CODE;
-import static com.example.unotes.constant.Constant.SELECT_PHOTO;
-import static com.example.unotes.constant.Constant.TAKE_PHOTO;
 
 /**
  * 用户片段
