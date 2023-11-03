@@ -13,8 +13,8 @@
         android:layout_height="match_parent">
 
         <include layout="@layout/devlayout_menu" />
-
         <include layout="@layout/devlayout_content" />
+
     </com.example.unotes.view.SlidingMenu>
 </FrameLayout><!--    <TextView-->
     <!--        android:id="@+id/textView"-->

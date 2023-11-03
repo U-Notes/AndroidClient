@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.animation.FloatEvaluator;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.unotes.activity.LoginActivity;
 import com.example.unotes.adapter.MainPagerAdapter;
+import com.example.unotes.database.PagerSqlite;
 import com.example.unotes.view.SlidingMenu;
 
 import static android.content.ContentValues.TAG;
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private FloatEvaluator mAlphaEvaluator;
     private View vContentBg;
+    PagerSqlite pagerSqlite;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initview();
         bindView();
+    }
+
+    private void initEvent() {
+        db = pagerSqlite.getReadableDatabase();
     }
 
     private void bindView() {

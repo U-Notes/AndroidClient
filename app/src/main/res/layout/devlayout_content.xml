@@ -18,15 +18,10 @@
             app:title="@string/app_name"
             app:titleTextColor="@android:color/black" />
 
-<!--        <androidx.viewpager2.widget.ViewPager2-->
-<!--            android:id="@+id/viewPager"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="200dp" />-->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/content_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--        <androidx.viewpager2.widget.ViewPager2-->
+        <!--            android:id="@+id/viewPager"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="200dp" />-->
     </LinearLayout>
 
     <View
