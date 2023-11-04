@@ -25,13 +25,13 @@ import java.util.List;
 public class PagerSqlite extends SQLiteOpenHelper {
     public static final String createPager = "CREATE TABLE IF NOT EXISTS " +
             PAGERTABLENAME +
-            "(_id PRIMARY KEY AUTOINCREMENT," +
+            "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "pagerName text," +
             "pagerNum INTEGER," +
             "createdTime INTERGER," +
             "updateTime INTEGER)";
 
-    public PagerSqlite(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public PagerSqlite(@Nullable Context context) {
         super(context, "unotes.db", null, 1);
     }
 

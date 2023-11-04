@@ -13,14 +13,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.unotes.activity.LoginActivity;
 import com.example.unotes.adapter.MainPagerAdapter;
+import com.example.unotes.adapter.MyViewPagerAdapter;
 import com.example.unotes.database.PagerSqlite;
+import com.example.unotes.utils.ToastUtils;
 import com.example.unotes.view.SlidingMenu;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import static android.content.ContentValues.TAG;
 import static com.example.unotes.constant.Constant.LOGIN_STATU_OFF;
@@ -28,19 +33,17 @@ import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
 
 public class MainActivity extends AppCompatActivity {
     private SlidingMenu vSlidingMenu;
-
     private ConstraintLayout devmenuList;
     private FrameLayout flMenuInfo;
     private Button bt_gotologin;
-    private LinearLayout llMenuInfo;
-    private ImageView ivUserIcon;
+    private LinearLayout llMenuInfo, llMenuSetting;
+    private ImageView ivUserIcon, ivGoright, ivStatus;
     private LinearLayout llUserName;
-    private TextView tvUserInfoName;
-    private ImageView ivGoright;
-    private TextView tvUserDept;
-    private ImageView ivStatus;
+    private TextView tvUserInfoName, tvUserDept;
     private RecyclerView rlMenuDept;
-    private LinearLayout llMenuSetting;
+    private TabLayout tl_dev;
+    private ImageButton ib_add;
+    private ViewPager2 viewPager2;
     /**
      * 透明度估值器
      */
@@ -55,10 +58,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initview();
         bindView();
+        initEvent();
     }
 
     private void initEvent() {
-        db = pagerSqlite.getReadableDatabase();
+        pagerSqlite = new PagerSqlite(this);
+//        db = pagerSqlite.getReadableDatabase();
     }
 
     private void bindView() {
@@ -109,12 +114,45 @@ public class MainActivity extends AppCompatActivity {
         ivStatus = (ImageView) findViewById(R.id.iv_status);
         rlMenuDept = (RecyclerView) findViewById(R.id.rl_MenuDept);
         llMenuSetting = (LinearLayout) findViewById(R.id.ll_menuSetting);
+        tl_dev = findViewById(R.id.tl_dev);
+        ib_add = findViewById(R.id.ib_add);
+        viewPager2 = findViewById(R.id.viewPager);
         /*
          * 原先业务端和角色端切换交互的旧方案，暂被弃用
          * */
 //        ViewPager2 viewPager2 = findViewById(R.id.viewPager);
 //        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(this);
 //        viewPager2.setAdapter(mainPagerAdapter);
+        ib_add.setOnClickListener((click) -> {
+            ToastUtils.showToast(this, "click");
+            // 设置ViewPager2的适配器
+            MyViewPagerAdapter adapter = new MyViewPagerAdapter(this);
+            viewPager2.setAdapter(adapter);
+        });
+        if (viewPager2.getAdapter() != null) {
+            // 使用TabLayoutMediator将TabLayout与ViewPager2关联
+            new TabLayoutMediator(tl_dev, viewPager2, (tab, position) -> {
+                // 设置标签页标题
+                tab.setText("Tab " + (position + 1));
+            }).attach();
+        }
+
+        tl_dev.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setText("awa");
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setText("" + tab.getId());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override

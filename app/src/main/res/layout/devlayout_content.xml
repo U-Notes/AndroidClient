@@ -18,10 +18,37 @@
             app:title="@string/app_name"
             app:titleTextColor="@android:color/black" />
 
-        <!--        <androidx.viewpager2.widget.ViewPager2-->
-        <!--            android:id="@+id/viewPager"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="200dp" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_dev"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:layout_weight="10" />
+
+            <ImageButton
+                android:id="@+id/ib_add"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/addition_fill" />
+
+        </LinearLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <!--                <androidx.viewpager2.widget.ViewPager2-->
+        <!--                    android:id="@+id/viewPager"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="200dp" />-->
     </LinearLayout>
 
     <View
