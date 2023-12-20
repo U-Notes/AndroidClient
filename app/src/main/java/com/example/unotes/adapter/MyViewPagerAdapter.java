@@ -26,7 +26,6 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
                 return new Fragment1();
         }
     }
-
     @Override
     public int getItemCount() {
         return 3; // 返回标签页的数量

@@ -2,6 +2,7 @@ package com.example.unotes.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -94,6 +95,11 @@ public class SlidingMenu extends FrameLayout {
             }
 
             @Override
+            public void onViewCaptured(@NonNull View capturedChild, int activePointerId) {
+                super.onViewCaptured(capturedChild, activePointerId);
+            }
+
+            @Override
             public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
                 super.onViewPositionChanged(changedView, left, top, dx, dy);
                 //处理联动，拽托菜单布局，让内容布局跟着动
@@ -174,19 +180,57 @@ public class SlidingMenu extends FrameLayout {
         //内容View铺满整个父控件
         vContentView.layout(left, top, right, bottom);
     }
+    public boolean shouldInterceptTouchEvent(MotionEvent ev) {
+        // 获取父视图的位置和大小
+        int[] location = new int[2];
+        getLocationOnScreen(location);
+        int left = location[0];
+        int top = location[1];
+        int right = left + getWidth();
+        int bottom = top + getHeight();
 
+        // 判断事件是否在父视图的范围内
+        if (ev.getX() >= left && ev.getX() <= right && ev.getY() >= top && ev.getY() <= bottom) {
+            // 如果在范围内，返回true，表示需要拦截这个事件
+            return true;
+        } else {
+            // 如果不在范围内，返回false，表示不需要拦截这个事件
+            return false;
+        }
+    }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         //将onInterceptTouchEvent委托给ViewDragHelper
-        return mViewDragHelper.shouldInterceptTouchEvent(ev);
+        boolean intercepted = false;
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                intercepted = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (mViewDragHelper.shouldInterceptTouchEvent(ev)) {
+                    intercepted = true;
+                } else {
+                    intercepted = false;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                intercepted = false;
+                break;
+            default:
+                break;
+        }
+        return intercepted;
+//        return mViewDragHelper.shouldInterceptTouchEvent(ev);
     }
 
-    @Override
+
+        @Override
     public boolean onTouchEvent(MotionEvent event) {
         //将onTouchEvent委托给ViewDragHelper
         mViewDragHelper.processTouchEvent(event);
         return true;
     }
+
 
     @Override
     public void computeScroll() {

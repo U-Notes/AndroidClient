@@ -1,15 +1,15 @@
 package com.example.unotes;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
+import static android.content.ContentValues.TAG;
+import static com.example.unotes.constant.Constant.LOGIN_STATU_OFF;
+import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
 
 import android.animation.FloatEvaluator;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -18,18 +18,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.unotes.activity.LoginActivity;
-import com.example.unotes.adapter.MainPagerAdapter;
 import com.example.unotes.adapter.MyViewPagerAdapter;
 import com.example.unotes.database.PagerSqlite;
 import com.example.unotes.utils.ToastUtils;
 import com.example.unotes.view.SlidingMenu;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import static android.content.ContentValues.TAG;
-import static com.example.unotes.constant.Constant.LOGIN_STATU_OFF;
-import static com.example.unotes.constant.Constant.LOGIN_STATU_ON;
 
 public class MainActivity extends AppCompatActivity {
     private SlidingMenu vSlidingMenu;
@@ -69,13 +69,14 @@ public class MainActivity extends AppCompatActivity {
     private void bindView() {
         //创建估值器
         mAlphaEvaluator = new FloatEvaluator();
+
         //------------ 重点：设置侧滑菜单的状态切换监听 ------------
         vSlidingMenu.setOnMenuStateChangeListener(new SlidingMenu.OnMenuStateChangeListener() {
             @Override
             public void onMenuOpen() {
                 Log.d(TAG, "菜单打开");
                 //让黑色遮罩，禁用触摸
-                vContentBg.setClickable(true);
+                vContentBg.setClickable(false);
             }
 
             @Override
@@ -117,6 +118,20 @@ public class MainActivity extends AppCompatActivity {
         tl_dev = findViewById(R.id.tl_dev);
         ib_add = findViewById(R.id.ib_add);
         viewPager2 = findViewById(R.id.viewPager);
+        viewPager2.bringToFront();
+//        viewPager2.setOnTouchListener((view,event) -> {
+//            int action = event.getAction();
+//            switch (action) {
+//                case MotionEvent.ACTION_DOWN:
+//                    view.getParent().requestDisallowInterceptTouchEvent(true);
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                case MotionEvent.ACTION_CANCEL:
+//                    view.getParent().requestDisallowInterceptTouchEvent(true);
+//                    break;
+//            }
+//            return false;
+//        });
         /*
          * 原先业务端和角色端切换交互的旧方案，暂被弃用
          * */
@@ -125,10 +140,12 @@ public class MainActivity extends AppCompatActivity {
 //        viewPager2.setAdapter(mainPagerAdapter);
         ib_add.setOnClickListener((click) -> {
             ToastUtils.showToast(this, "click");
-            // 设置ViewPager2的适配器
-            MyViewPagerAdapter adapter = new MyViewPagerAdapter(this);
-            viewPager2.setAdapter(adapter);
+
         });
+        // 设置ViewPager2的适配器
+        MyViewPagerAdapter adapter = new MyViewPagerAdapter(this);
+        viewPager2.setAdapter(adapter);
+
         if (viewPager2.getAdapter() != null) {
             // 使用TabLayoutMediator将TabLayout与ViewPager2关联
             new TabLayoutMediator(tl_dev, viewPager2, (tab, position) -> {
@@ -153,6 +170,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                // 在手指按下时，请求父容器不要拦截事件
+                viewPager2.getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                // 在手指抬起或取消时，请求父容器可以拦截事件
+                viewPager2.getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
