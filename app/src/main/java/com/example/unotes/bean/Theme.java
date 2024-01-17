@@ -10,7 +10,6 @@ import lombok.Data;
  * @date 2024/01/11
  */
 @Data
-@Builder
 public class Theme {
     public Theme() {
     }

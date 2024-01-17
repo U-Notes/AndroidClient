@@ -2,15 +2,15 @@ package com.example.unotes.database;
 
 
 import static com.example.unotes.constant.Constant.CREATE_TIME;
-import static com.example.unotes.constant.Constant.DATABASE_NAME;
 import static com.example.unotes.constant.Constant.DATABASE_VERSION;
 import static com.example.unotes.constant.Constant.TABLE_ID;
 import static com.example.unotes.constant.Constant.THEME_LOCATION;
 import static com.example.unotes.constant.Constant.THEME_PARENT_ID;
-import static com.example.unotes.constant.Constant.THEME_TABLE_NAME;
 import static com.example.unotes.constant.Constant.THEME_TITLE;
 import static com.example.unotes.constant.Constant.THEME_TYPE;
 import static com.example.unotes.constant.Constant.UPDATA_TIME;
+import static com.example.unotes.constant.SqliteName.DATABASE_NAME;
+import static com.example.unotes.constant.SqliteName.THEME_TABLE_NAME;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -133,7 +133,7 @@ public class ThemeTreeDao extends SQLiteOpenHelper {
                 long updateTimeMillis = cursor.getLong(cursor.getColumnIndex(UPDATA_TIME));
                 themeData.setCreateTime(new Date(createTimeMillis));
                 themeData.setUpdateTime(new Date(updateTimeMillis));
-
+                themeList.add(themeData);
             } while (cursor.moveToNext());
 
         }
@@ -164,6 +164,8 @@ public class ThemeTreeDao extends SQLiteOpenHelper {
                 long updateTimeMillis = cursor.getLong(cursor.getColumnIndex(UPDATA_TIME));
                 themeData.setCreateTime(new Date(createTimeMillis));
                 themeData.setUpdateTime(new Date(updateTimeMillis));
+                themeList.add(themeData);
+
             } while (cursor.moveToNext());
         }
         cursor.close();
